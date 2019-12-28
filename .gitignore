@@ -1,0 +1,12 @@
+*.code-workspace
+.exercism
+.vscode
+.pytest_cache
+.idea
+__pycache__
+build.gradle.kts
+build
+gradle
+.gradle
+gradlew*
+go.mod
