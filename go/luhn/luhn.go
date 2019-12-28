@@ -7,23 +7,6 @@ import (
 
 //Valid determine whether a provided string is a valid
 func Valid(s string) bool {
-	/*For some reason, the below comment runs slower (224 ns/op)
-	* than the used line 20 (214 ns/op).
-	* However, the commented section runs 5_426_456 times and completes in 1.446s
-	* While the left in section runs 5_104_358 times and completes in 1.334s.
-	* Not sure how to parse this information.
-	* I'm reading this as both solutions are faster AND slower than each other
-	* Which makes no sense.
-	 */
-
-	/*spliced := strings.ReplaceAll(s, " ", "")
-	if len(spliced) <= 1 {
-		return false
-	}
-	arr, ok := convertToIntSlice(spliced)
-	if !ok {
-		return false
-	}*/
 	arr, ok := convertToIntSlice(strings.ReplaceAll(s, " ", ""))
 	if len(arr) <= 1 || !ok {
 		return false
