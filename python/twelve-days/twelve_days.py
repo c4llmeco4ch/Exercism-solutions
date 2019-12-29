@@ -14,10 +14,7 @@ days = [['first', 'a Partridge in a Pear Tree'],
 
 
 def recite(start_verse, end_verse):
-    all_days = []
-    for day in range(start_verse - 1, end_verse):
-        all_days.insert(len(all_days), calc_day(day))
-    return all_days
+    return [calc_day(day) for day in range(start_verse - 1, end_verse)]
 
 
 def calc_day(day):
