@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
 
-status=0
-output=""
-
 function error_exit {
-    echo "Usage: ./error_handling <greetee>"
-    exit $status
+    echo "Usage: ./error_handling <greetee>" 1>&2
+    exit 1
 }
 
 if (( $# != 1 ))
 then
-    status=1
     error_exit
 fi
 
