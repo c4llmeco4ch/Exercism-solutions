@@ -1,6 +1,6 @@
 package space
 
-var convertion map[Planet]float64 = map[Planet]float64{
+var conversion map[Planet]float64 = map[Planet]float64{
 	"Mercury": 7_600_543.81992,
 	"Venus":   19_414_149.052176,
 	"Earth":   31_557_600.0,
@@ -16,5 +16,5 @@ type Planet string
 
 // Age returns how old a person is given a planet and number of seconds
 func Age(seconds float64, planet Planet) float64 {
-	return seconds / convertion[planet]
+	return seconds / conversion[planet]
 }
