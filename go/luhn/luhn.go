@@ -21,8 +21,5 @@ func Valid(s string) bool {
 		}
 		sum += val
 	}
-	if len(s)-numSpaces <= 1 {
-		return false
-	}
-	return sum%10 == 0
+	return sum%10 == 0 && len(s)-numSpaces > 1
 }
