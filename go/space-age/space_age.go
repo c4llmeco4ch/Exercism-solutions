@@ -1,32 +1,20 @@
 package space
 
-const earthYearInSeconds float64 = 31557600
-
-func toEarthYears(sec float64) float64 {
-	return sec / earthYearInSeconds
+var convertion map[Planet]float64 = map[Planet]float64{
+	"Mercury": 7_600_543.81992,
+	"Venus":   19_414_149.052176,
+	"Earth":   31_557_600.0,
+	"Mars":    59_354_032.690079994,
+	"Jupiter": 374_355_659.124,
+	"Saturn":  929_292_362.8848,
+	"Uranus":  2_651_370_019.3296,
+	"Neptune": 5_200_418_560.032001,
 }
 
 //Planet The name of a particular planet
 type Planet string
 
-func convertFromEarth(years *float64, planet Planet) {
-	convertion := map[Planet]float64{
-		"Mercury": 0.2408467,
-		"Venus":   0.61519726,
-		"Mars":    1.8808158,
-		"Jupiter": 11.862615,
-		"Saturn":  29.447498,
-		"Uranus":  84.016846,
-		"Neptune": 164.79132,
-	}
-	*years /= convertion[planet]
-}
-
 // Age returns how old a person is given a planet and number of seconds
 func Age(seconds float64, planet Planet) float64 {
-	age := toEarthYears(seconds)
-	if planet != "Earth" {
-		convertFromEarth(&age, planet)
-	}
-	return age
+	return seconds / convertion[planet]
 }
