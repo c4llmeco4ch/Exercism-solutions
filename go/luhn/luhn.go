@@ -2,18 +2,19 @@ package luhn
 
 //Valid determine whether a provided string is a valid
 func Valid(s string) bool {
-	arr, ok := convertToIntSlice(s)
+	arr, sum, ok := convertToIntSlice(s)
 	if len(arr) <= 1 || !ok {
 		return false
 	}
-	return calcValue(arr)%10 == 0
+	return sum%10 == 0
 }
 
-func convertToIntSlice(s string) ([]int, bool) {
+func convertToIntSlice(s string) ([]int, int, bool) {
 	arr := make([]int, len(s))
 	pos := len(s) - 1
 	everyOther := 1
 	numSpaces := 0
+	sum := 0
 	for pos >= 0 {
 		if s[pos] == ' ' {
 			pos--
@@ -21,7 +22,7 @@ func convertToIntSlice(s string) ([]int, bool) {
 			continue
 		}
 		if int(s[pos]) < '0' || int(s[pos]) > '9' {
-			return arr, false
+			return arr, -1, false
 		}
 		val := int(s[pos] - '0')
 		if everyOther%2 == 0 {
@@ -31,16 +32,9 @@ func convertToIntSlice(s string) ([]int, bool) {
 			}
 		}
 		arr[pos] = val
+		sum += val
 		everyOther = (everyOther + 1) % 2
 		pos--
 	}
-	return arr, len(s)-numSpaces > 1
-}
-
-func calcValue(arr []int) int {
-	sum := 0
-	for _, val := range arr {
-		sum += int(val)
-	}
-	return sum
+	return arr, sum, len(s)-numSpaces > 1
 }
