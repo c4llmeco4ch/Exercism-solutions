@@ -1,35 +1,40 @@
 package luhn
 
-import (
-	"strings"
-	"unicode"
-)
-
 //Valid determine whether a provided string is a valid
 func Valid(s string) bool {
-	arr, ok := convertToIntSlice(strings.ReplaceAll(s, " ", ""))
+	arr, ok := convertToIntSlice(s)
 	if len(arr) <= 1 || !ok {
 		return false
-	}
-	for pos := len(arr) - 2; pos >= 0; pos -= 2 {
-		num := arr[pos] * 2
-		if num > 9 {
-			num -= 9
-		}
-		arr[pos] = num
 	}
 	return calcValue(arr)%10 == 0
 }
 
 func convertToIntSlice(s string) ([]int, bool) {
 	arr := make([]int, len(s))
-	for i, r := range s {
-		if !unicode.IsDigit(r) {
+	pos := len(s) - 1
+	everyOther := 1
+	numSpaces := 0
+	for pos >= 0 {
+		if s[pos] == ' ' {
+			pos--
+			numSpaces++
+			continue
+		}
+		if int(s[pos]) < '0' || int(s[pos]) > '9' {
 			return arr, false
 		}
-		arr[i] = int(r - '0')
+		val := int(s[pos] - '0')
+		if everyOther%2 == 0 {
+			val *= 2
+			if val > 9 {
+				val -= 9
+			}
+		}
+		arr[pos] = val
+		everyOther = (everyOther + 1) % 2
+		pos--
 	}
-	return arr, true
+	return arr, len(s)-numSpaces > 1
 }
 
 func calcValue(arr []int) int {
