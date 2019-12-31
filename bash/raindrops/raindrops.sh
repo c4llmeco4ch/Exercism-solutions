@@ -1,24 +1,26 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+let pling=$1%3
+let plang=$1%5
+let plong=$1%7
+
+response=""
+
+if (( $pling == 0 ))
+then
+    response+="Pling"
+fi
+if (( $plang == 0 ))
+then
+    response+="Plang"
+fi
+if (( $plong == 0 ))
+then
+    response+="Plong"
+fi
+if [[ $response == "" ]]
+then
+    echo "$1"
+else
+    echo $response
+fi
