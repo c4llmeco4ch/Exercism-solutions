@@ -1,1 +1,26 @@
 package grains
+
+import (
+	"errors"
+	"math"
+)
+
+//Square return the number of grains at space 'input'
+func Square(input int) (uint64, error) {
+	if input <= 0 || input > 64 {
+		return 0, errors.New("Invalid input number")
+	}
+	return uint64(math.Pow(2, float64(input-1))), nil
+}
+
+//Total return the total number of grains for all spaces on the board
+func Total() uint64 {
+	top, pos := 64, 1
+	sum := uint64(0)
+	for top >= pos {
+		val, _ := Square(pos)
+		sum += val
+		pos++
+	}
+	return sum
+}
