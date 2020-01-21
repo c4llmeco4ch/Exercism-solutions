@@ -1,10 +1,7 @@
-from string import punctuation
+import re
 def count_words(sentence):
     dict = {}
-    punc = punctuation.replace("'",'')
-    for val in punc:
-        if val in sentence:
-            sentence = sentence.replace(val, ' ')
+    sentence = re.sub("[^a-zA-Z0-9']", " ", sentence)
     for word in sentence.split():
         if (w := word.lower())[0] == "'":
             w = w[1:]
