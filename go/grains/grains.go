@@ -1,35 +1,15 @@
 package grains
 
-import (
-	"errors"
-)
+import "errors"
 
-var (
-	board = [64]uint64{0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0,
-	}
-)
+const start uint64 = 0b0000_0001
 
 //Square return the number of grains at space 'input'
 func Square(input int) (uint64, error) {
 	if input <= 0 || input > 64 {
-		return 0, errors.New("Invalid input number")
+		return 0, errors.New("Invalid number entered")
 	}
-	if input == 1 {
-		board[0] = 1
-		return 1, nil
-	} else if board[input-1] != 0 {
-		return board[input-1], nil
-	}
-	s, _ := Square(input - 1)
-	board[input-1] = s * 2
-	return s * 2, nil
+	return start << (input - 1), nil
 }
 
 //Total return the total number of grains for all spaces on the board
