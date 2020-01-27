@@ -9,15 +9,11 @@ object ScrabbleScore {
             'k' -> 5
             'j', 'x' -> 8
             'q', 'z' -> 10
-            else -> -1
+            else -> 0
         }
     }
 
     fun scoreWord(word: String): Int {
-        var sum: Int = 0
-        for (c in word.toLowerCase()) {
-            sum += scoreLetter(c)
-        }
-        return sum
+        return word.sumBy{scoreLetter(it.toLowerCase())}
     }
 }
