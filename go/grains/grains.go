@@ -1,8 +1,10 @@
 package grains
 
-import "errors"
+import (
+	"errors"
+)
 
-const start uint64 = 0b0000_0001
+const start uint64 = 1
 
 //Square return the number of grains at space 'input'
 func Square(input int) (uint64, error) {
@@ -17,7 +19,10 @@ func Total() uint64 {
 	top, pos := 64, 1
 	sum := uint64(0)
 	for top >= pos {
-		val, _ := Square(pos)
+		val, err := Square(pos)
+		if err != nil {
+			return 0 //Dealing with invald pos reached
+		}
 		sum += val
 		pos++
 	}
