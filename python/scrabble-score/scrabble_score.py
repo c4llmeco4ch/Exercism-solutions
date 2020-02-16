@@ -6,6 +6,6 @@ points = {'a' : 1, 'b' : 3, 'c' : 3, 'd' : 2, 'e' : 1,
           'u' : 1, 'v' : 4, 'w' : 4, 'x' : 8, 'y' : 4, 'z' : 10}
 
 def score(word):
-    return sum([times * points[letter] for letter, times in Counter(word.lower()).items()])
+    return sum(times * points[letter] for letter, times in Counter(word.lower()).items())
     
 
