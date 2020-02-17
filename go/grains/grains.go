@@ -19,5 +19,5 @@ func Square(input int) (uint64, error) {
 
 //Total return the total number of grains for all spaces on the board
 func Total() uint64 {
-	return (1 << 64) - 1
+	return 1<<64 - 1
 }
