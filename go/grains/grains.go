@@ -4,11 +4,6 @@ import (
 	"errors"
 )
 
-const (
-	start uint64 = 1
-	max   uint64 = 64
-)
-
 //Square return the number of grains at space 'input'
 func Square(input int) (uint64, error) {
 	if input <= 0 || input > 64 {
