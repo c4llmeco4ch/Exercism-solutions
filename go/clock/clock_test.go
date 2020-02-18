@@ -40,7 +40,8 @@ func TestCreateClock(t *testing.T) {
 
 func TestAddMinutes(t *testing.T) {
 	for _, a := range addTests {
-		if got := New(a.h, a.m).Add(a.a); got.String() != a.want {
+		got := New(a.h, a.m)
+		if got.Add(a.a).String() != a.want {
 			t.Fatalf("New(%d, %d).Add(%d) = %q, want %q",
 				a.h, a.m, a.a, got, a.want)
 		}
@@ -50,7 +51,8 @@ func TestAddMinutes(t *testing.T) {
 
 func TestSubtractMinutes(t *testing.T) {
 	for _, a := range subtractTests {
-		if got := New(a.h, a.m).Subtract(a.a); got.String() != a.want {
+		got := New(a.h, a.m)
+		if got.Subtract(a.a).String() != a.want {
 			t.Fatalf("New(%d, %d).Subtract(%d) = %q, want %q",
 				a.h, a.m, a.a, got, a.want)
 		}
@@ -69,7 +71,8 @@ func TestAddMinutesStringless(t *testing.T) {
 			wantMin, _ = strconv.Atoi(split[1])
 		}
 		want := New(wantHour, wantMin)
-		if got := New(a.h, a.m).Add(a.a); !reflect.DeepEqual(got, want) {
+		got := New(a.h, a.m)
+		if !reflect.DeepEqual(got.Add(a.a), want) {
 			t.Fatalf("New(%d, %d).Add(%d) = %v, want %v",
 				a.h, a.m, a.a, got, want)
 		}
@@ -88,7 +91,8 @@ func TestSubtractMinutesStringless(t *testing.T) {
 			wantMin, _ = strconv.Atoi(split[1])
 		}
 		want := New(wantHour, wantMin)
-		if got := New(a.h, a.m).Subtract(a.a); !reflect.DeepEqual(got, want) {
+		got := New(a.h, a.m)
+		if !reflect.DeepEqual(got.Subtract(a.a), want) {
 			t.Fatalf("New(%d, %d).Subtract(%d) = %v, want %v",
 				a.h, a.m, a.a, got, want)
 		}
@@ -115,17 +119,17 @@ func TestCompareClocks(t *testing.T) {
 }
 
 func TestAddAndCompare(t *testing.T) {
-	clock1 := New(15, 45).Add(16)
+	clock1 := New(15, 45)
 	clock2 := New(16, 1)
-	if !reflect.DeepEqual(clock1, clock2) {
+	if !reflect.DeepEqual(clock1.Add(16), clock2) {
 		t.Errorf("clock.New(15,45).Add(16) differs from clock.New(16,1)")
 	}
 }
 
 func TestSubtractAndCompare(t *testing.T) {
-	clock1 := New(16, 1).Subtract(16)
+	clock1 := New(16, 1)
 	clock2 := New(15, 45)
-	if !reflect.DeepEqual(clock1, clock2) {
+	if !reflect.DeepEqual(clock1.Subtract(16), clock2) {
 		t.Errorf("clock.New(16,1).Subtract(16) differs from clock.New(15,45)")
 	}
 }
