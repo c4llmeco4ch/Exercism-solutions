@@ -10,7 +10,7 @@ class Garden:
                                           "David", "Eve", "Fred",
                                           "Ginny", "Harriet", "Ileana",
                                           "Joseph", "Kincaid", "Larry"]):
-        self.diagram = diagram.split('\n')
+        self.diagram = diagram.splitlines()
         self.students = sorted(students)
 
     def plants(self, student):
