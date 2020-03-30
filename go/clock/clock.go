@@ -31,27 +31,10 @@ func (c Clock) String() string {
 
 //Add provided some minutes 'm', add that much time to the referenced clock
 func (c *Clock) Add(m int) Clock {
-	bonusHours, m := m/60, m%60
-	c.Minutes += m
-	if c.Minutes >= 60 {
-		c.Minutes %= 60
-		bonusHours++
-	}
-	c.Hours = (c.Hours + bonusHours) % 24
-	return *c
+	return New(c.Hours, c.Minutes+m)
 }
 
 //Subtract provided some minutes 'm', subtract that much time to the referenced clock
 func (c *Clock) Subtract(m int) Clock {
-	bonusHours, m := m/60, m%60
-	c.Minutes -= m
-	if c.Minutes < 0 {
-		c.Minutes += 60
-		bonusHours++
-	}
-	c.Hours = (c.Hours - bonusHours) % 24
-	for c.Hours < 0 {
-		c.Hours += 24
-	}
-	return *c
+	return New(c.Hours, c.Minutes-m)
 }
