@@ -4,7 +4,7 @@ from string import digits
 
 class Luhn:
     def __init__(self, card_num: str) -> None:
-        self.num = [i for i in card_num if i != " "]
+        self.num = card_num.replace(' ','')
 
 
     '''for fun
@@ -19,12 +19,10 @@ class Luhn:
     # for readability
     def valid(self) -> bool:
         """Confirm whether or not the provided card number is a valid number"""
-        if any(i for i in self.num if i not in digits):
+        if not self.num.isdigit():
             return False
         same_vals = [int(i) for i in self.num[::-2]]
         doubled = [int(val) * 2 for val in self.num[-2::-2]]
-        for pos, num in enumerate(doubled):
-            if num > 9:
-                doubled[pos] = num - 9
-        same_vals.extend(doubled)
-        return len(same_vals) != 1 and (sum(same_vals) % 10) == 0
+        combined = [num - (0 if num <= 9 else 9) for num in doubled]
+        combined.extend(same_vals)
+        return len(combined) != 1 and (sum(combined) % 10) == 0
