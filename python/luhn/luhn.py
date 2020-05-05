@@ -18,7 +18,7 @@ class Luhn:
     # for readability
     def valid(self) -> bool:
         """Confirm whether or not the provided card number is a valid number"""
-        if not self.num.isdigit() or len(self.num) != 1:
+        if not self.num.isdigit() or len(self.num) == 1:
             return False
         same_vals = [int(i) for i in self.num[::-2]]
         doubled = [int(val) * 2 for val in self.num[-2::-2]]
