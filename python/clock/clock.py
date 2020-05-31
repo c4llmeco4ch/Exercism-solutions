@@ -8,10 +8,8 @@ class Clock:
         self.minute = minute
         self.reduce_minutes()
 
-
     def __repr__(self):
         return f'{self.hour:02}:{self.minute:02}'
-
 
     def __eq__(self, other):
         return self.minute == other.minute and self.hour == other.hour
