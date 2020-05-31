@@ -1,6 +1,7 @@
 class Clock:
 
     HOURS_IN_DAY = 24
+    MINUTES_IN_HOUR = 60
 
     def __init__(self, hour, minute):
         self.hour = hour
@@ -9,29 +10,18 @@ class Clock:
 
 
     def __repr__(self):
-        ''' Is there a way to enforce 0s with an f-string?
-        return f'{self.hour}:{self.minute}'
-        '''
-        return '%02d:%02d' % (self.hour, self.minute)
+        return f'{self.hour:02}:{self.minute:02}'
+
 
     def __eq__(self, other):
         return self.minute == other.minute and self.hour == other.hour
 
     def __add__(self, minutes):
-        self.minute += minutes
-        self.reduce_minutes()
-        return self
+        return self.__class__(self.hour, self.minute + minutes)
 
     def __sub__(self, minutes):
-        self.minute -= minutes
-        self.reduce_minutes()
-        return self
+        return self.__class__(self.hour, self.minute - minutes)
 
     def reduce_minutes(self):
-        while self.minute >= 60:
-            self.minute -= 60
-            self.hour += 1
-        while self.minute < 0:
-            self.minute += 60
-            self.hour -= 1
-        self.hour %= self.HOURS_IN_DAY
+        self.hour = (self.hour + (self.minute // 60)) % self.HOURS_IN_DAY
+        self.minute %= self.MINUTES_IN_HOUR
